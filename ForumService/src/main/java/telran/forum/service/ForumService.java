@@ -1,12 +1,12 @@
-package telran.json.service;
+package telran.forum.service;
 
 import java.util.List;
 
-import telran.json.dto.DatePeriodDto;
-import telran.json.dto.NewCommentDto;
-import telran.json.dto.NewPostDto;
-import telran.json.dto.PostUpdateDto;
-import telran.json.model.Post;
+import telran.forum.dto.DatePeriodDto;
+import telran.forum.dto.NewCommentDto;
+import telran.forum.dto.NewPostDto;
+import telran.forum.dto.PostUpdateDto;
+import telran.forum.model.Post;
 
 public interface ForumService {
 	Post addNewPost(NewPostDto newPost);

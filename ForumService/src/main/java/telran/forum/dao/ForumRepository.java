@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import telran.json.model.Post;
+import telran.forum.model.Post;
 
 public interface ForumRepository extends MongoRepository<Post, String> {
 	Iterable<Post>findByTagsIn(List<String>tags);

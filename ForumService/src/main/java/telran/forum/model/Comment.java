@@ -1,4 +1,4 @@
-package telran.json.model;
+package telran.forum.model;
 
 import java.time.LocalDateTime;
 

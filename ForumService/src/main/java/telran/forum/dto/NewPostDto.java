@@ -1,5 +1,6 @@
-package telran.json.dto;
+package telran.forum.dto;
 
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DatePeriodDto {
-	String from;
-	String to;
+public class NewPostDto {
+	String title;
+	String content;
+	String author;
+	Set<String>tags;
 
 }

@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import telran.json.dto.DatePeriodDto;
-import telran.json.dto.NewCommentDto;
-import telran.json.dto.NewPostDto;
-import telran.json.dto.PostUpdateDto;
-import telran.json.model.Post;
-import telran.json.service.ForumService;
+import telran.forum.dto.DatePeriodDto;
+import telran.forum.dto.NewCommentDto;
+import telran.forum.dto.NewPostDto;
+import telran.forum.dto.PostUpdateDto;
+import telran.forum.model.Post;
+import telran.forum.service.ForumService;
 
 
 @RestController

@@ -1,4 +1,4 @@
-package telran.json.dto;
+package telran.forum.dto;
 
 import java.util.Set;
 

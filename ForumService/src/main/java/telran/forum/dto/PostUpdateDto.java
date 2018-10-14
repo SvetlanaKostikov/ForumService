@@ -1,4 +1,4 @@
-package telran.json.dto;
+package telran.forum.dto;
 
 import java.util.Set;
 
@@ -11,10 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class NewPostDto {
-	String title;
+public class PostUpdateDto {
+	String id;
 	String content;
-	String author;
-	Set<String>tags;
 
 }

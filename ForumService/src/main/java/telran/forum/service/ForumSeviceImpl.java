@@ -1,4 +1,4 @@
-package telran.json.service;
+package telran.forum.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import telran.forum.dao.ForumRepository;
-import telran.json.dto.DatePeriodDto;
-import telran.json.dto.NewCommentDto;
-import telran.json.dto.NewPostDto;
-import telran.json.dto.PostUpdateDto;
-import telran.json.model.Comment;
-import telran.json.model.Post;
+import telran.forum.dto.DatePeriodDto;
+import telran.forum.dto.NewCommentDto;
+import telran.forum.dto.NewPostDto;
+import telran.forum.dto.PostUpdateDto;
+import telran.forum.model.Comment;
+import telran.forum.model.Post;
 
 @Service
 public class ForumSeviceImpl implements ForumService {
