@@ -3,15 +3,21 @@ package telran.forum.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import telran.forum.configuration.AccountConfiguration;
+import telran.forum.configuration.AccountUserCredential;
 import telran.forum.dao.ForumRepository;
+import telran.forum.dao.UserAccountRepository;
+import telran.forum.model.UserAccount;
 import telran.forum.dto.DatePeriodDto;
 import telran.forum.dto.NewCommentDto;
 import telran.forum.dto.NewPostDto;
 import telran.forum.dto.PostUpdateDto;
+import telran.forum.exception.ForbiddenException;
 import telran.forum.model.Comment;
 import telran.forum.model.Post;
 
@@ -19,6 +25,11 @@ import telran.forum.model.Post;
 public class ForumSeviceImpl implements ForumService {
 	@Autowired
 	ForumRepository forumRepository;
+	@Autowired
+	AccountConfiguration accountConfiguration;
+	@Autowired
+	UserAccountRepository userRepository;
+
 
 	@Override
 	public Post addNewPost(NewPostDto newPost) {
@@ -34,20 +45,39 @@ public class ForumSeviceImpl implements ForumService {
 	}
 
 	@Override
-	public Post removePost(String id) {
+	public Post removePost(String id, String auth) {
 		Post post = forumRepository.findById(id).orElse(null);
-		if(post!=null) {
+		if (post != null) {
+			AccountUserCredential credentials = accountConfiguration.tokens(auth);
+			UserAccount user = userRepository.findById(credentials.getLogin()).get();
+			Set<String>roles = user.getRoles();
+			boolean hasRight = roles.stream()
+					.anyMatch(s->"Admin".equals(s)||"Moderator".equals(s));
+			hasRight = hasRight || credentials.getLogin().equals(post.getAuthor());
+			if(!hasRight) {
+				throw new ForbiddenException();
+			}
+
 			forumRepository.delete(post);
 		}
 		return post;
 	}
 
+
+
 	@Override
-	public Post updatePost(PostUpdateDto updatePost) {
-		Post post = getPost(updatePost.getId());
-		post.setContent(updatePost.getContent());
-		forumRepository.save(post);
+	public Post updatePost(PostUpdateDto updatePost, String auth) {
+		Post post = forumRepository.findById(updatePost.getId()).orElse(null);
+		if (post != null) {
+			AccountUserCredential credentials = accountConfiguration.tokens(auth);
+			if (!credentials.getLogin().equals(post.getAuthor())) {
+				throw new ForbiddenException();
+			}
+			post.setContent(updatePost.getContent());
+			forumRepository.save(post);
+		}
 		return post;
+
 	}
 
 	@Override

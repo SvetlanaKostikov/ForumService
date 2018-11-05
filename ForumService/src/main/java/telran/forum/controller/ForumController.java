@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import telran.forum.dto.DatePeriodDto;
@@ -20,6 +22,7 @@ import telran.forum.service.ForumService;
 
 
 @RestController
+@RequestMapping("/forum")
 public class ForumController {
 	@Autowired
 	ForumService forumService;
@@ -33,12 +36,12 @@ public class ForumController {
 		return forumService.getPost(id);
 	}
 	@DeleteMapping("/post/{id}")
-	public Post removeStudent(@PathVariable String id) {
-		return forumService.removePost(id);
+	public Post removeStudent(@PathVariable String id,@RequestHeader(value = "Authorization")String auth) {
+		return forumService.removePost(id,auth);
 	}
 	@PutMapping("/updatepost")
-	public Post updatePost (@RequestBody PostUpdateDto post) {
-		return forumService.updatePost(post);
+	public Post updatePost (@RequestBody PostUpdateDto post,@RequestHeader(value = "Authorization")String auth) {
+		return forumService.updatePost(post,auth);
 	}
 	@PutMapping("/post/{id}/like")
 	public boolean addLike(@PathVariable String id) {
